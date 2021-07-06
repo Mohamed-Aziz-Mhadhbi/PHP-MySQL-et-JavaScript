@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Test aide en ligne</title>
+        <script>
+            var fenetreHelp;
+
+            function creerFenetreHelp() {
+                fenetreHelp = window.open(
+                    "aide.html",
+                    "fenetreHelp",
+                    "width=500, height=150, location=no,toolbar=no,scrollbars=yes,resizable=yes, directories=no, status=no");
+            }
+
+            function helpOuPas(){
+                if ((typeof(fenetreHelp)=="undefined")||(fenetreHelp.closed==true)) {
+
+                    creerFenetreHelp();
+                }else{
+                    fenetreHelp.close();
+                }
+            }
+
+            function help(url){
+                if (typeof(fenetreHelp)=="undefined")
+                    return;
+                else if (fenetreHelp.closed==true)
+                    return;
+                var urlHelp = "aide.html#" + url;
+                fenetreHelp.location.replace(urlHelp);
+            }
+        </script>
+    </head>
+</html>
+<body bgcolor="#FFFFFFFF">
+
+<a href=javascript:creerFenetreHelp()>Ouvrir l'aide</a>&nbsp;&nbsp;
+<a href=javascript:fenetreHelp.close()>Fermer l'aide</a>
+<p></p>
+
+<form><input type="button" value="aide" onClick="helpOuPas()">
+
+<font size=+2>1</font> <input name="sujet1" onFocus=help(sujet1)> 
+<font size=+2>2</font> <select name="sujet2" onFocus=help(sujet2)>
+<option>Samedi</option>
+<option>Dimanche</option>
+<option>...</option>
+</select>
+<font size=+2>3</font> <a href=# onMouseOver=help(sujet3)>un lien ...</a>
+</form>
+</body>
+</html>
